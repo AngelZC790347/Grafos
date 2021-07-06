@@ -1,0 +1,9 @@
+.road{
+    background-color: rgba(251, 243, 246, 0.829);
+    width: 3px;
+    position: absolute;
+}
+.linea{
+    stroke:rgb(255,0,0);
+    stroke-width:2;
+}

@@ -1,0 +1,18 @@
+body{
+   background-color: rgb(8, 8, 106);
+}
+.footer {
+    position: absolute;
+    bottom: 0px;
+    float: inline-end;
+    padding-bottom:8% ;
+    padding-left: 5%;
+    color: rgb(211, 209, 209);
+}
+.footer label{
+    padding: 3px;
+}
+.footer #in-but{
+    padding-right:  10px;
+    padding-left: 10px;
+}
