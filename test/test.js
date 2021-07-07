@@ -1,13 +1,73 @@
-import {Nodo , addNodo} from '../JS/nodo';
+import {Nodo } from '../JS/nodo';
 import {Road} from '../JS/road';
+let arrayuOfNodes=[];
 document.addEventListener('DOMContentLoaded',()=>{
-    let nodo11 = new Nodo(11);
-    let nodo12 = new Nodo(12);
-    let road1 = new Road(500,`node-${nodo11.valor}`,`node-${nodo12.valor}`);
-    console.log(JSON.stringify(nodo11));
-    console.log(nodo12.roads);
-    // linea1Element.setAttribute("x1",nodo11.nodoHtmlElement.offsetLeft);
-    // linea1Element.setAttribute( "y1",nodo11.nodoHtmlElement.offsetTop);
-    // linea1Element.setAttribute( "x2",nodo12.nodoHtmlElement.offsetTop);
-    // linea1Element.setAttribute( "y2",nodo12.nodoHtmlElement.offsetTop);
+    setUpSvg();
+    const addNodoButton = document.getElementById('in-but-add-nodo'); 
+    addNodoButton.addEventListener('click',addNodo);
+    const addRoadButton = document.getElementById('in-but-add-road');
+    addRoadButton.addEventListener('click',addRoad);
 });
+export function addNodo() {
+    const fieldNodoValue =document.getElementById('in-number-nodo').value;
+    let existe = nodeExist(fieldNodoValue);
+    console.log(existe);
+    if (fieldNodoValue === "" || fieldNodoValue ==null ) {
+        console.error( "the field value must be writted");        
+    }else if (existe){
+        console.error("the node already been exist");
+    }else{
+        let nodo = new Nodo(fieldNodoValue);
+        arrayuOfNodes.push(nodo);
+    }  
+} 
+function setUpSvg(){
+    let roadElement=document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    roadElement.setAttribute("height",`${document.body.offsetHeight}`);
+    roadElement.setAttribute("width",`${document.body.offsetWidth}`);
+    roadElement.id="root-svg";
+    document.body.append(roadElement);
+}
+
+function nodeExist(value){
+    let exist = false;
+    value = parseInt(value);
+    for (let index = 0; index < arrayuOfNodes.length; index++) {
+        const element = arrayuOfNodes[index];
+        console.log(element.valor);
+        console.log(value);
+        if (element.valor == value) {
+            exist = true;
+        }
+    }
+    return exist;
+}
+function findNodoByID(id){
+    let element;
+    arrayuOfNodes.map((el)=>{
+        if (el.valor == id) {
+            element = el;
+        }
+    });
+    return element;
+}
+export default function addRoad(){
+    let fieldNodeStart=document.getElementById('node-start').value;
+    let fieldNodeFinal=document.getElementById('node-final').value;
+    let tamañoRoadField= document.getElementById('tam-road').value;
+    if (fieldNodeStart!=="" && fieldNodeFinal !=="" && tamañoRoadField !== "") {
+        try{
+            let idNodeStart=`node-${fieldNodeStart}`;
+            let idNodeFinal =`node-${fieldNodeFinal}`;
+            let road1=new Road(tamañoRoadField,idNodeStart,idNodeFinal);
+            let nodeStart=findNodoByID(parseInt(fieldNodeStart)); 
+            let nodeFinal=findNodoByID(parseInt(fieldNodeFinal));
+            nodeStart.roads.push(road1);
+            nodeFinal.roads.push(road1);
+        }catch(error){
+            console.error(error);
+        }
+    }else{
+        console.error('all fields must be writted');
+    }
+}

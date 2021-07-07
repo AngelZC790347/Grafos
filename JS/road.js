@@ -1,4 +1,3 @@
-
 export class Road{
     constructor(tamaño,initID,finalID){
         this.initNode = document.getElementById(initID);
@@ -7,34 +6,20 @@ export class Road{
         if (this.initNode==null || this.finalNode==null) {
             throw "Any of Node does not exist";
         }else{
-            console.log(this.finalNode,this.initNode);
-            let roadElement=document.createElement('svg');
-            let lineElement=document.createElement('line');
-            lineElement.id=`line-${this.initNode.innerHTML}-${this.finalNode.innerHTML}`;
-            console.log(lineElement)
-            roadElement.className="road";
-            roadElement.style.height=`${tamaño}px`;
-            document.body.append(roadElement);
-            console.log(this.initNode.clientTop+this.initNode.offsetHeight/2+'px');
-            roadElement.style.top=`${this.initNode.offsetTop+this.initNode.offsetHeight/2}px`;
-            roadElement.style.left=`${this.initNode.offsetLeft+this.initNode.offsetWidth/2}px`;
-            this.finalNode.style.top=`${roadElement.offsetTop+roadElement.offsetHeight}px`;
-            this.finalNode.style.left =`${roadElement.offsetLeft-this.finalNode.offsetWidth/2}px`
+            let roadElement = document.getElementById('root-svg');
+            this.lineElement=document.createElementNS("http://www.w3.org/2000/svg", "line");
+            this.lineElement.style="stroke:rgb(250, 250, 250);stroke-width:2";
+            roadElement.append(this.lineElement);
+            this.drawLine();
         }
     }
-}
-export default function addRoad(){
-    let fieldNodeStart=document.getElementById('node-start').value;
-    let fieldNodeFinal=document.getElementById('node-final').value;
-    let tamañoRoadField= document.getElementById('tam-road').value;
-    if (fieldNodeStart!=="" && fieldNodeFinal !=="" && tamañoRoadField !== "") {
-        try{
-            let road1=new Road(tamañoRoadField,`node-${fieldNodeStart}`,`node-${fieldNodeFinal}`); 
+    drawLine(){
+        this.lineElement.setAttribute("x1",this.initNode.offsetLeft+this.initNode.offsetWidth/2);
+        this.lineElement.setAttribute("y1",this.initNode.offsetTop+this.initNode.offsetHeight/2);
+        this.lineElement.setAttribute("x2",this.finalNode.offsetLeft+this.finalNode.offsetWidth/2);
+        this.lineElement.setAttribute("y2",this.finalNode.offsetTop+this.finalNode.offsetHeight/2);
+    }
+    getDomDistanceFromTwoNodes(){
 
-        }catch(error){
-            console.error(error);
-        }
-    }else{
-        console.error('all fields must be writted');
     }
 }
