@@ -3,8 +3,16 @@ export class Nodo{
     constructor(valor){
             this.roads=[]; 
             this.valor = parseInt(valor);
-            let updateRoads=this.updateRoads.bind(this);
-            const secNodo = document.getElementById('nodo-sec');
+            this.nodoHtmlElement=this.drawNodo();              
+    }
+    updateRoads(){
+        this.roads.map(el=>{
+            el.drawLine();
+        });
+    }
+    drawNodo(){
+        let updateRoads=this.updateRoads.bind(this);
+        const secNodo = document.getElementById('nodo-sec');
             secNodo.innerHTML+=`<div class="nodo" id="node-${this.valor}">${this.valor}</div>`   
             const nuevoNodeElement = document.getElementById(`node-${this.valor}`);
             document.body.append(nuevoNodeElement);
@@ -30,12 +38,26 @@ export class Nodo{
             }
             nuevoNodeElement.ondragstart = function() {
                 return false;
-            };  
-            this.nodoHtmlElement=nuevoNodeElement;              
+            };
+            return nuevoNodeElement;  
     }
-    updateRoads(){
-        this.roads.map(el=>{
-            el.drawLine();
-        });
+    getTheMostShortestRoad(){
+        let minimun;
+        this.roads.map((el,i)=>{
+            if (i===0) {
+                minimun = el;
+            }
+            minimun = el.tamaño<minimun?el:minimun;
+        })
+        return minimun;
+    }
+    alDijkstra(){
+
+    }
+    alKruskal(){
+
+    }
+    alPrim(){
+
     }
 }

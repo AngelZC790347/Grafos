@@ -1,26 +1,13 @@
 import {Nodo } from '../JS/nodo';
 import {Road} from '../JS/road';
 let arrayuOfNodes=[];
+const CANTNODOS=20;
 document.addEventListener('DOMContentLoaded',()=>{
     setUpSvg();
-    const addNodoButton = document.getElementById('in-but-add-nodo'); 
-    addNodoButton.addEventListener('click',addNodo);
-    const addRoadButton = document.getElementById('in-but-add-road');
-    addRoadButton.addEventListener('click',addRoad);
+    testNodes();
+    testRoads();
+    testRoadsByNode();
 });
-export function addNodo() {
-    const fieldNodoValue =document.getElementById('in-number-nodo').value;
-    let existe = nodeExist(fieldNodoValue);
-    console.log(existe);
-    if (fieldNodoValue === "" || fieldNodoValue ==null ) {
-        console.error( "the field value must be writted");        
-    }else if (existe){
-        console.error("the node already been exist");
-    }else{
-        let nodo = new Nodo(fieldNodoValue);
-        arrayuOfNodes.push(nodo);
-    }  
-} 
 function setUpSvg(){
     let roadElement=document.createElementNS("http://www.w3.org/2000/svg", "svg");
     roadElement.setAttribute("height",`${document.body.offsetHeight}`);
@@ -29,19 +16,12 @@ function setUpSvg(){
     document.body.append(roadElement);
 }
 
-function nodeExist(value){
-    let exist = false;
-    value = parseInt(value);
-    for (let index = 0; index < arrayuOfNodes.length; index++) {
-        const element = arrayuOfNodes[index];
-        console.log(element.valor);
-        console.log(value);
-        if (element.valor == value) {
-            exist = true;
-        }
-    }
-    return exist;
+function testRoadsByNode() {
+    arrayuOfNodes.map(el=>{
+        el.getTheMostShortestRoad();
+    })
 }
+
 function findNodoByID(id){
     let element;
     arrayuOfNodes.map((el)=>{
@@ -51,23 +31,21 @@ function findNodoByID(id){
     });
     return element;
 }
-export default function addRoad(){
-    let fieldNodeStart=document.getElementById('node-start').value;
-    let fieldNodeFinal=document.getElementById('node-final').value;
-    let tamañoRoadField= document.getElementById('tam-road').value;
-    if (fieldNodeStart!=="" && fieldNodeFinal !=="" && tamañoRoadField !== "") {
-        try{
-            let idNodeStart=`node-${fieldNodeStart}`;
-            let idNodeFinal =`node-${fieldNodeFinal}`;
-            let road1=new Road(tamañoRoadField,idNodeStart,idNodeFinal);
-            let nodeStart=findNodoByID(parseInt(fieldNodeStart)); 
-            let nodeFinal=findNodoByID(parseInt(fieldNodeFinal));
-            nodeStart.roads.push(road1);
-            nodeFinal.roads.push(road1);
-        }catch(error){
-            console.error(error);
-        }
-    }else{
-        console.error('all fields must be writted');
+function  testRoads() {
+    for (let index = 0; index < arrayuOfNodes.length; index++) {
+        if (index === arrayuOfNodes.length-1) {
+            let road1 = new Road(100,`node-${arrayuOfNodes[index].valor}`,`node-${arrayuOfNodes[0].valor}`);
+            arrayuOfNodes[index].roads.push(road1);
+            arrayuOfNodes[0].roads.push(road1);
+        }else{
+            let road1 = new Road(100,`node-${arrayuOfNodes[index].valor}`,`node-${arrayuOfNodes[index+1].valor}`);
+            arrayuOfNodes[index].roads.push(road1);
+            arrayuOfNodes[index+1].roads.push(road1);
+        }  
+    }
+}
+function testNodes() {
+    for (let index = 0; index < CANTNODOS; index++) {
+        arrayuOfNodes.push(new Nodo(index+1));
     }
 }

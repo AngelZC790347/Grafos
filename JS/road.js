@@ -2,6 +2,7 @@ export class Road{
     constructor(tamaño,initID,finalID){
         this.initNode = document.getElementById(initID);
         this.finalNode = document.getElementById(finalID);
+        this.tamaño=tamaño;
         this.roadId =`roadFrom${initID}To${finalID}`;
         if (this.initNode==null || this.finalNode==null) {
             throw "Any of Node does not exist";
