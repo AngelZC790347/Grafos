@@ -3,6 +3,7 @@ export class Nodo{
     constructor(valor){
             this.roads=[]; 
             this.valor = parseInt(valor);
+            this.highlighted = false;
             this.nodoHtmlElement=this.drawNodo();              
     }
     updateRoads(){
@@ -13,10 +14,11 @@ export class Nodo{
     drawNodo(){
         let updateRoads=this.updateRoads.bind(this);
         const secNodo = document.getElementById('nodo-sec');
-            secNodo.innerHTML+=`<div class="nodo" id="node-${this.valor}">${this.valor}</div>`   
+            secNodo.innerHTML+=`<div class="nodo" id="node-${this.valor}">${this.valor}</div>`;  
             const nuevoNodeElement = document.getElementById(`node-${this.valor}`);
             document.body.append(nuevoNodeElement);
             nuevoNodeElement.style.left="0px";
+            nuevoNodeElement.style.backgroundColor = this.highlighted? "red":"yellow";
             nuevoNodeElement.onmousedown=function(event){
                 nuevoNodeElement.style.position = 'absolute';
                 nuevoNodeElement.style.zIndex = 1000;
@@ -51,13 +53,5 @@ export class Nodo{
         })
         return minimun;
     }
-    alDijkstra(){
-
-    }
-    alKruskal(){
-
-    }
-    alPrim(){
-
-    }
+   
 }
