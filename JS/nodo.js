@@ -11,6 +11,11 @@ export class Nodo{
             el.drawLine();
         });
     }
+
+    alkDijktra(){
+        
+    }
+
     drawNodo(){
         let updateRoads=this.updateRoads.bind(this);
         const secNodo = document.getElementById('nodo-sec');

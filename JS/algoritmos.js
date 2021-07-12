@@ -6,28 +6,34 @@ export function alKruskal(arrayuOfNodes){
     let roadasSolution=[]
     let terminado = false;
     let roadsElements = document.getElementsByTagName('line'); 
-    let maximo = roadsElements.length;
-    let index = 0
     while (!terminado) {
-        console.log(index);
+        if (roadasSolution.length >=arrayuOfNodes.length-1) {
+            break;
+        }
         let element=getTheMinRoad(roadsElements);
         let idElement=element.id.split(' ');
+        roadasSolution.push(element);
         let idNodes = idElement.map(el=>{
             return parseInt(el);
         });
         let currentNodes=idNodes.map(e=>findNodoByID(e,arrayuOfNodes));
         console.log(currentNodes);  
-       
-        if(verifyAllNodos(arrayuOfNodes)){
+        console.log(arrayuOfNodes.length,roadasSolution.length);
+        if(verifyAllNodos(arrayuOfNodes)  && roadasSolution.length === arrayuOfNodes.length-1){ 
             terminado = true;
             break;
         }else{
             currentNodes[0].highlighted=true;
             currentNodes[1].highlighted=true;
         } 
-        index++
     }
-
+    for (const iterator of roadsElements) {
+        console.log(iterator);
+        iterator.remove();
+    }
+    roadasSolution.forEach(element => {
+        console.log(element.id);
+    });
 }
 export  function alPrim(){
 
@@ -54,6 +60,7 @@ function getTheMinRoad(htmlColection){
         }
         i++;
     }
+    console.log(htmlColection.item(indiceMenor));
     htmlColection.item(indiceMenor).remove();
     return minimun;
 }
