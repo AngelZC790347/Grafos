@@ -4,14 +4,26 @@ export function alDijkstra(){
 }
 
 export function alKruskal(arrayuOfNodes){
-    let tmpRoads=[];
+    let tmpRoads=[]; //the roads that will be deleting;
+    let index = 0;
+    let terminado = false;
     let roadsElements = document.getElementsByTagName('line'); 
     for (const iterator1 of roadsElements) {
         tmpRoads.push(iterator1);
     }
-    for (let index = 0; index < arrayuOfNodes.length-1; index++) {
-        let numebrsID=getTheMinRoad(tmpRoads).id;
-        recolorLinesByID(numebrsID,"rgb(250, 250, 250)","rgb(255,0,0)",arrayuOfNodes);
+    while (!terminado) {
+        if (index >= arrayuOfNodes.length-2){
+            terminado = true;
+        }
+
+        let element=getTheMinRoad(tmpRoads,arrayuOfNodes);// catch the minimun road It will nullable If it form a cicle road
+
+        if (element === null){
+            index = index;
+        } else {
+            recolorLinesByID(element.id,"rgb(250, 250, 250)","rgb(255,0,0)",arrayuOfNodes);   
+            index++;
+        }
     }
     tmpRoads.map(el=>{
         let numebrs=el.id.split(" ");
@@ -24,7 +36,7 @@ export function alKruskal(arrayuOfNodes){
 function recolorLinesByID(lineID,initColor,finalColor,arrayuOfNodes) {
     let numebrs=lineID.split(" ");
     console.log(parseInt(numebrs[0]));
-    let currentID = `roadFromnode-${numebrs[0]}Tonode-${numebrs[1]}`      
+    let currentID = `roadFromnode-${numebrs[0]}Tonode-${numebrs[1]}`;     
     findNodoByID(parseInt(numebrs[0]),arrayuOfNodes).roads.map(el=>{
         console.log(el.roadId ,currentID);
         if (el.roadId === currentID) {
@@ -48,7 +60,7 @@ function verifyAllNodos(arrayuOfNodes) {
     return completed;
 }
 
-function getTheMinRoad(arrayOfRoads){
+function getTheMinRoad(arrayOfRoads,arrayuOfNodes){
     let minimun ;
     let minIndex;
     minimun = arrayOfRoads[0];
@@ -60,8 +72,15 @@ function getTheMinRoad(arrayOfRoads){
         }
     });
     arrayOfRoads.splice(minIndex,1);
-    
+    let numbers=minimun.id.split(' ').map(el=>parseInt(el));
+    let node1 = findNodoByID(numbers[0],arrayuOfNodes);
+    let node2 =findNodoByID(numbers[1],arrayuOfNodes);
+    if (node1.highlighted && node2.highlighted) {
+        recolorLinesByID(minimun.id,"rgb(250, 250, 250)","transparent",arrayuOfNodes)
+        return null;
+    }else{
     return minimun;
+    }
 }
 
 function findNodoByID(id,arrayuOfNodes){
