@@ -4,40 +4,44 @@ export function alDijkstra(){
 }
 
 export function alKruskal(arrayuOfNodes){
-    let tmpRoads=[]; //the roads that will be deleting;
-    let index = 0;
-    let terminado = false;
-    let roadsElements = document.getElementsByTagName('line'); 
-    for (const iterator1 of roadsElements) {
-        tmpRoads.push(iterator1);
-    }
-    while (!terminado) {
-        if (index >= arrayuOfNodes.length-2){
-            terminado = true;
+    if (arrayuOfNodes.length<2) {
+        alert("You need at least 2 node");
+    }else{
+        let tmpRoads=[]; //the roads that will be deleting;
+        let index = 0;
+        let terminado = false;
+        let roadsElements = document.getElementsByTagName('line'); 
+        for (const iterator1 of roadsElements) {
+            tmpRoads.push(iterator1);
         }
+        while (!terminado) {
+            if (index >= arrayuOfNodes.length-2){
+                terminado = true;
+            }
 
-        let element=getTheMinRoad(tmpRoads,arrayuOfNodes);// catch the minimun road It will nullable If it form a cicle road
+            let element=getTheMinRoad(tmpRoads,arrayuOfNodes);// catch the minimun road It will nullable If it form a cicle road
 
-        if (element === null){
-            index = index;
-        } else {
-            recolorLinesByID(element.id,"rgb(250, 250, 250)","rgb(255,0,0)",arrayuOfNodes);   
-            index++;
+            if (element === null){
+                index = index;
+            } else {
+                recolorLinesByID(element.id,"rgb(250, 250, 250)","rgb(255,0,0)",arrayuOfNodes);   
+                index++;
+            }
         }
+        tmpRoads.map(el=>{
+            let numebrs=el.id.split(" ");
+            const textID=`${el.innerHTML} node-${numebrs[0]} node-${numebrs[1]}`
+            document.getElementById(textID).innerHTML="";
+            recolorLinesByID(el.id,"rgb(250, 250, 250)", "transparent",arrayuOfNodes);
+        }); 
     }
-    tmpRoads.map(el=>{
-        let numebrs=el.id.split(" ");
-        const textID=`${el.innerHTML} node-${numebrs[0]} node-${numebrs[1]}`
-        document.getElementById(textID).innerHTML="";
-        recolorLinesByID(el.id,"rgb(250, 250, 250)", "transparent",arrayuOfNodes);
-    }); 
 }
 
 function recolorLinesByID(lineID,initColor,finalColor,arrayuOfNodes) {
     let numebrs=lineID.split(" ");
-    console.log(parseInt(numebrs[0]));
+    console.log(numebrs[0]);
     let currentID = `roadFromnode-${numebrs[0]}Tonode-${numebrs[1]}`;     
-    findNodoByID(parseInt(numebrs[0]),arrayuOfNodes).roads.map(el=>{
+    findNodoByID(numebrs[0],arrayuOfNodes).roads.map(el=>{
         console.log(el.roadId ,currentID);
         if (el.roadId === currentID) {
             console.log('es igual');
@@ -72,7 +76,7 @@ function getTheMinRoad(arrayOfRoads,arrayuOfNodes){
         }
     });
     arrayOfRoads.splice(minIndex,1);
-    let numbers=minimun.id.split(' ').map(el=>parseInt(el));
+    let numbers=minimun.id.split(' ').map(el=>el);
     let node1 = findNodoByID(numbers[0],arrayuOfNodes);
     let node2 =findNodoByID(numbers[1],arrayuOfNodes);
     if (node1.highlighted && node2.highlighted) {

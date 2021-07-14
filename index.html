@@ -12,19 +12,51 @@
 <body>
     <style>
         .buttonAnimation{
-            margin-top: 100px;
+            margin-top: 3%;
+        }
+        form  > div >div{
+            margin-bottom: 5%;
+            margin-left: 5%;
+            height:18px;
+            height: 35px;
+        }
+        form > div > h1{
+            margin-left: 5%;
+        }
+        form > div{
+            display: inline-block;
+            width: 49%;
+            height: 100%;
+        }
+        label{
+            margin-top: 1%;
+            display: inline-block;
+            padding-right:2ch;
+            width: 150px;
         }
         .buttonAnimation button{
-            padding: 1.5%;
+            padding: 1%;
             border: solid 1px;
             border-radius: 2%;
             font-family:serif;
             font-size: 30px;
+            width: 260px;
             box-shadow: 5px aliceblue;
             background-color: darkgray;
+            margin: 1% 4%;
         }
         .buttonAnimation button:hover{
             background-color: darkkhaki;
+        }
+        input{
+            height: 25px;
+            
+        }
+        input[type=button]{
+            padding: 5px 5%;
+            text-align:start;
+            height: 100%;
+            margin-left: 20%;
         }
     </style>
     <div id = "nodo-sec">
@@ -41,23 +73,27 @@
         <form action="">
             <div>
                 <h1>Add Nodo</h1>
-                <label for="">Ingrese Numero</label>
-                <input type="number" id="in-number-nodo">
-                <input type="button" value="ADD" id="in-but-add-nodo">
+                <div><label for="in-number-nodo">Enter Letter</label>
+                <input type="text" id="in-number-nodo"></div>
+                <div></div>
+                <div></div>
+                <div style="margin-bottom: 0px; height: 30px;"><input type="button" value="ADD" id="in-but-add-nodo"></div>
             </div>
             <div>
                 <h1>Add Road</h1>
-                <label for="">Ingrese Tamaño de Enlace</label>
-                <input type="number" id="tam-road">
-                <label for=""> Nodo Inicio</label>
-                <input type="number" name="" id="node-start">
-                <label>Nodo final</label>
-                <input type="number" name="" id="node-final">
-                <input type="button" value="ADD" id="in-but-add-road">
+                <div><label for="tam-road">Value to Road</label>
+                <input type="number" id="tam-road"></div>
+                <div><label for="node-start"> Start Node </label>
+                <input type="text" name="" id="node-start"></div>
+                <div><label for="node-final">Final Node </label>
+                <input type="text" name="" id="node-final"></div>
+                <div style="margin-bottom: 0px; height: 30px;"><input type="button" value="ADD" id="in-but-add-road"></div>
             </div>
         </form>
         <div class="buttonAnimation">
             <button id="button-kruskal"> Animar Kruskal </button>
+            <button id="button-prinn" onclick="alert('The algorithm has not been implemented yet')">Animate Prinn</button>
+            <button id="button-dijkstra" onclick="alert('The algorithm has not been implemented yet')">Animate Dijkstra</button>
         </div>
     </div>
     <!-- <script src="./test/test.js" type="module"></script> -->

@@ -2,7 +2,7 @@
 export class Nodo{
     constructor(valor){
             this.roads=[]; 
-            this.valor = parseInt(valor);
+            this.valor = valor;
             this.highlighted = false;
             this.nodoHtmlElement=this.drawNodo();              
     }

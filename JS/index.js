@@ -14,11 +14,10 @@ document.addEventListener('DOMContentLoaded',()=>{
 export function addNodo() {
     const fieldNodoValue =document.getElementById('in-number-nodo').value;
     let existe = nodeExist(fieldNodoValue);
-    console.log(existe);
     if (fieldNodoValue === "" || fieldNodoValue ==null ) {
-        console.error( "the field value must be writted");        
+        alert( "the field Letter must be writted");        
     }else if (existe){
-        console.error("the node already been exist");
+        alert("the node already been exist");
     }else{
         let nodo = new Nodo(fieldNodoValue);
         arrayuOfNodes.push(nodo);
@@ -34,12 +33,11 @@ function setUpSvg(){
 
 function nodeExist(value){
     let exist = false;
-    value = parseInt(value);
+    value = value;
     for (let index = 0; index < arrayuOfNodes.length; index++) {
         const element = arrayuOfNodes[index];
-        console.log(element.valor);
         console.log(value);
-        if (element.valor == value) {
+        if (element.valor === value) {
             exist = true;
         }
     }
@@ -63,14 +61,14 @@ export default function addRoad(){
             let idNodeStart=`node-${fieldNodeStart}`;
             let idNodeFinal =`node-${fieldNodeFinal}`;
             let road1=new Road(tamañoRoadField,idNodeStart,idNodeFinal);
-            let nodeStart=findNodoByID(parseInt(fieldNodeStart)); 
-            let nodeFinal=findNodoByID(parseInt(fieldNodeFinal));
+            let nodeStart=findNodoByID(fieldNodeStart); 
+            let nodeFinal=findNodoByID(fieldNodeFinal);
             nodeStart.roads.push(road1);
             nodeFinal.roads.push(road1);
         }catch(error){
-            console.error(error);
+            alert(error);
         }
     }else{
-        console.error('all fields must be writted');
+        alert('all fields must be writted');
     }
 }
