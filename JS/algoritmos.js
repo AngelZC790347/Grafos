@@ -1,43 +1,43 @@
 
 export function alDijkstra(){
-
+    // Dijstra algoritmo
 }
+
 export function alKruskal(arrayuOfNodes){
-    let roadasSolution=[]
-    let terminado = false;
+    let tmpRoads=[];
     let roadsElements = document.getElementsByTagName('line'); 
-    while (!terminado) {
-        if (roadasSolution.length >=arrayuOfNodes.length-1) {
-            break;
+    for (const iterator1 of roadsElements) {
+        tmpRoads.push(iterator1);
+    }
+    for (let index = 0; index < arrayuOfNodes.length-1; index++) {
+        let numebrsID=getTheMinRoad(tmpRoads).id;
+        recolorLinesByID(numebrsID,"rgb(250, 250, 250)","rgb(255,0,0)",arrayuOfNodes);
+    }
+    tmpRoads.map(el=>{
+        let numebrs=el.id.split(" ");
+        const textID=`${el.innerHTML} node-${numebrs[0]} node-${numebrs[1]}`
+        document.getElementById(textID).innerHTML="";
+        recolorLinesByID(el.id,"rgb(250, 250, 250)", "transparent",arrayuOfNodes);
+    }); 
+}
+
+function recolorLinesByID(lineID,initColor,finalColor,arrayuOfNodes) {
+    let numebrs=lineID.split(" ");
+    console.log(parseInt(numebrs[0]));
+    let currentID = `roadFromnode-${numebrs[0]}Tonode-${numebrs[1]}`      
+    findNodoByID(parseInt(numebrs[0]),arrayuOfNodes).roads.map(el=>{
+        console.log(el.roadId ,currentID);
+        if (el.roadId === currentID) {
+            console.log('es igual');
+            el.setLineAnimation(initColor,finalColor);
         }
-        let element=getTheMinRoad(roadsElements);
-        let idElement=element.id.split(' ');
-        roadasSolution.push(element);
-        let idNodes = idElement.map(el=>{
-            return parseInt(el);
-        });
-        let currentNodes=idNodes.map(e=>findNodoByID(e,arrayuOfNodes));
-        console.log(currentNodes);  
-        console.log(arrayuOfNodes.length,roadasSolution.length);
-        if(verifyAllNodos(arrayuOfNodes)  && roadasSolution.length === arrayuOfNodes.length-1){ 
-            terminado = true;
-            break;
-        }else{
-            currentNodes[0].highlighted=true;
-            currentNodes[1].highlighted=true;
-        } 
-    }
-    for (const iterator of roadsElements) {
-        console.log(iterator);
-        iterator.remove();
-    }
-    roadasSolution.forEach(element => {
-        console.log(element.id);
     });
 }
-export  function alPrim(){
 
+export  function alPrim(){
+    //algoritmos de Prin Animation
 }
+
 function verifyAllNodos(arrayuOfNodes) {
     let completed =true ;
     arrayuOfNodes.map(e=>{
@@ -47,26 +47,26 @@ function verifyAllNodos(arrayuOfNodes) {
     });
     return completed;
 }
-function getTheMinRoad(htmlColection){
+
+function getTheMinRoad(arrayOfRoads){
     let minimun ;
-    let indiceMenor;
-    let i = 0;
-    minimun = htmlColection['0'];
-    for (const iterator of htmlColection) {
-        let number = parseFloat(iterator.innerHTML);
-        if (number < parseFloat(minimun.innerHTML)){
-            indiceMenor = i;
-            minimun  = iterator;
+    let minIndex;
+    minimun = arrayOfRoads[0];
+    arrayOfRoads.map((element,i) => {
+        if (parseFloat(element.innerHTML) <= parseFloat(minimun.innerHTML)) {
+            console.log("es menor" + element.innerHTML);
+            minimun =  element;
+            minIndex = i;
         }
-        i++;
-    }
-    console.log(htmlColection.item(indiceMenor));
-    htmlColection.item(indiceMenor).remove();
+    });
+    arrayOfRoads.splice(minIndex,1);
+    
     return minimun;
 }
 
 function findNodoByID(id,arrayuOfNodes){
     let element;
+    console.log(arrayuOfNodes);
     arrayuOfNodes.map((el)=>{
         if (el.valor == id) {
             element = el;

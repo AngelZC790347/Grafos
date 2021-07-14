@@ -10,11 +10,30 @@
     <link rel="stylesheet" href="./styles/global.css">
 </head>
 <body>
+    <style>
+        .buttonAnimation{
+            margin-top: 100px;
+        }
+        .buttonAnimation button{
+            padding: 1.5%;
+            border: solid 1px;
+            border-radius: 2%;
+            font-family:serif;
+            font-size: 30px;
+            box-shadow: 5px aliceblue;
+            background-color: darkgray;
+        }
+        .buttonAnimation button:hover{
+            background-color: darkkhaki;
+        }
+    </style>
     <div id = "nodo-sec">
     </div>
     <!-- <svg height="210" width="500">
-        <text x="300" y="15" fill="red">I love SVG!</text>
-        <line x1="5" y1="15" x2="600" y2="15" style="stroke:rgb(255,0,0);stroke-width:2" />
+        <line x="10" y="10" x2="100" y2="100">
+            <animate attributeType="XML" attributeName="stroke" from="rgb(211, 209, 209)" to="rgb(255,0,0)"
+                dur="10s" repeatCount="indefinite"/>
+        </line>
         Sorry, your browser does not support inline SVG.
       </svg> -->
 
@@ -37,8 +56,11 @@
                 <input type="button" value="ADD" id="in-but-add-road">
             </div>
         </form>
+        <div class="buttonAnimation">
+            <button id="button-kruskal"> Animar Kruskal </button>
+        </div>
     </div>
-    <script src="./test/test.js" type="module"></script>
-    <!-- <script src="./JS/index.js" nomodule type="module"></script> -->
+    <!-- <script src="./test/test.js" type="module"></script> -->
+    <script src="./JS/index.js" nomodule type="module"></script>
 </body>
 </html>

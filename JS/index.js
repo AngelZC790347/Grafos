@@ -1,5 +1,6 @@
 import {Nodo } from '../JS/nodo';
 import {Road} from '../JS/road';
+import {alKruskal} from './algoritmos'
 let arrayuOfNodes=[];
 document.addEventListener('DOMContentLoaded',()=>{
     setUpSvg();
@@ -7,6 +8,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     addNodoButton.addEventListener('click',addNodo);
     const addRoadButton = document.getElementById('in-but-add-road');
     addRoadButton.addEventListener('click',addRoad);
+    const kruskalButton = document.getElementById('button-kruskal');
+    kruskalButton.addEventListener('click',()=>{alKruskal(arrayuOfNodes)});
 });
 export function addNodo() {
     const fieldNodoValue =document.getElementById('in-number-nodo').value;

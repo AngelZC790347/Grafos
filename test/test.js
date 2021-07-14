@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     testRoads();
     testRoadsByNode();
     alKruskal(arrayuOfNodes);
+    // testeAnimation();
 });
 function setUpSvg(){
     let roadElement=document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -37,8 +38,12 @@ function  testRoads() {
         }  
     }
 }
+
 function testNodes() {
     for (let index = 0; index < CANTNODOS; index++) {
         arrayuOfNodes.push(new Nodo(index+1));
     }
+}
+function testeAnimation() {
+    arrayuOfNodes[CANTNODOS-1].roads[0].setLineAnimation();
 }
