@@ -3,13 +3,9 @@ import {Road} from '../JS/road';
 import {alKruskal} from './algoritmos'
 let arrayuOfNodes=[];
 document.addEventListener('DOMContentLoaded',()=>{
-    setUpSvg();
-    const addNodoButton = document.getElementById('in-but-add-nodo'); 
-    addNodoButton.addEventListener('click',addNodo);
-    const addRoadButton = document.getElementById('in-but-add-road');
-    addRoadButton.addEventListener('click',addRoad);
-    const kruskalButton = document.getElementById('button-kruskal');
-    kruskalButton.addEventListener('click',()=>{alKruskal(arrayuOfNodes)});
+    document.getElementById('in-but-add-nodo').addEventListener('click',addNodo);
+    document.getElementById('in-but-add-road').addEventListener('click',addRoad);
+    document.getElementById('button-kruskal').addEventListener('click',()=>{alKruskal(arrayuOfNodes)});
 });
 export function addNodo() {
     const fieldNodoValue =document.getElementById('in-number-nodo').value;
@@ -23,24 +19,11 @@ export function addNodo() {
         arrayuOfNodes.push(nodo);
     }  
 } 
-function setUpSvg(){
-    let roadElement=document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    roadElement.setAttribute("height",`${document.body.offsetHeight}`);
-    roadElement.setAttribute("width",`${document.body.offsetWidth}`);
-    roadElement.id="root-svg";
-    document.body.append(roadElement);
-}
-
 function nodeExist(value){
     let exist = false;
-    value = value;
-    for (let index = 0; index < arrayuOfNodes.length; index++) {
-        const element = arrayuOfNodes[index];
-        console.log(value);
-        if (element.valor === value) {
-            exist = true;
-        }
-    }
+    arrayuOfNodes.forEach(element=>{
+        exist = element.valor===value;
+    });
     return exist;
 }
 function findNodoByID(id){
@@ -52,7 +35,7 @@ function findNodoByID(id){
     });
     return element;
 }
-export default function addRoad(){
+function addRoad(){
     let fieldNodeStart=document.getElementById('node-start').value;
     let fieldNodeFinal=document.getElementById('node-final').value;
     let tamañoRoadField= document.getElementById('tam-road').value;

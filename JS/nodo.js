@@ -1,4 +1,3 @@
-
 export class Nodo{
     constructor(valor){
             this.roads=[]; 
@@ -12,8 +11,7 @@ export class Nodo{
         });
     }
 
-    alkDijktra(){
-        
+    alkDijktra(){       
     }
 
     drawNodo(){
@@ -23,6 +21,7 @@ export class Nodo{
             const nuevoNodeElement = document.getElementById(`node-${this.valor}`);
             document.body.append(nuevoNodeElement);
             nuevoNodeElement.style.left="0px";
+            nuevoNodeElement.style.top="0px";
             nuevoNodeElement.style.backgroundColor = this.highlighted? "red":"yellow";
             nuevoNodeElement.onmousedown=function(event){
                 nuevoNodeElement.style.position = 'absolute';

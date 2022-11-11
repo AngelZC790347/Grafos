@@ -4,37 +4,7 @@ export function alDijkstra(){
 }
 
 export function alKruskal(arrayuOfNodes){
-    if (arrayuOfNodes.length<2) {
-        alert("You need at least 2 node");
-    }else{
-        let tmpRoads=[]; //the roads that will be deleting;
-        let index = 0;
-        let terminado = false;
-        let roadsElements = document.getElementsByTagName('line'); 
-        for (const iterator1 of roadsElements) {
-            tmpRoads.push(iterator1);
-        }
-        while (!terminado) {
-            if (index >= arrayuOfNodes.length-2){
-                terminado = true;
-            }
-
-            let element=getTheMinRoad(tmpRoads,arrayuOfNodes);// catch the minimun road It will nullable If it form a cicle road
-
-            if (element === null){
-                index = index;
-            } else {
-                recolorLinesByID(element.id,"rgb(250, 250, 250)","rgb(255,0,0)",arrayuOfNodes);   
-                index++;
-            }
-        }
-        tmpRoads.map(el=>{
-            let numebrs=el.id.split(" ");
-            const textID=`${el.innerHTML} node-${numebrs[0]} node-${numebrs[1]}`
-            document.getElementById(textID).innerHTML="";
-            recolorLinesByID(el.id,"rgb(250, 250, 250)", "transparent",arrayuOfNodes);
-        }); 
-    }
+    console.log(arrayuOfNodes);
 }
 
 function recolorLinesByID(lineID,initColor,finalColor,arrayuOfNodes) {
