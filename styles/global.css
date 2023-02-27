@@ -4,6 +4,7 @@ html,body{
     min-height: 100%;
     overflow: hidden;
     padding:0;
+    font-family: monospace, "comic sans"
 }
 .footer {
     position: absolute;
@@ -48,7 +49,7 @@ html,body{
   padding: 20px;
 }
 #pop-up-form input {
-  width: 100%;
+  width: 30%;
   height: 20%;
   top: 0;
   left: 0;

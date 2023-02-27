@@ -3,8 +3,12 @@ export function alDijkstra(){
     // Dijstra algoritmo
 }
 
-export function alKruskal(arrayuOfNodes){
-    console.log(arrayuOfNodes);
+export function alKruskal(nodes,valor){
+    let contador = 0
+    while (contador < nodes.size){
+        
+        contador++
+    }
 }
 
 function recolorLinesByID(lineID,initColor,finalColor,arrayuOfNodes) {

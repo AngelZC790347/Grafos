@@ -10,10 +10,6 @@ export class Nodo{
             el.drawLine();
         });
     }
-
-    alkDijktra(){       
-    }
-
     drawNodo(){
         let updateRoads=this.updateRoads.bind(this);
         const secNodo = document.getElementById('nodo-sec');
@@ -53,7 +49,7 @@ export class Nodo{
             if (i===0) {
                 minimun = el;
             }
-            minimun = el.tamaño<minimun?el:minimun;
+            minimun = el.tamaño<minimun.tamaño?el:minimun;
         })
         return minimun;
     }
