@@ -3,13 +3,42 @@ export function alDijkstra(){
     // Dijstra algoritmo
 }
 
-export function alKruskal(nodes,valor){
-    let contador = 0
-    while (contador < nodes.size){
+export async function alKruskal(nodes,roads){    
+    roads.sort((road1,road2)=>road2.tamaño - road1.tamaño)
+    let solution = []
+    console.log(roads)
+    for (var i = roads.length - 1; i >= 0; i--) {
+        let min = roads.pop()    
+        // console.log(min,roads)
+        if (!verifyCycle(min.initNode,min.finalNode,solution)) {
+            await min.setLineAnimation("rgb(250, 250, 250)","red") 
+            solution.push(min)
+        }
+        console.log(solution)
         
-        contador++
+    }    
+}   
+
+
+function verifyCycle(origin , destinity , tmpSolution) {
+    // body...    
+    let encontrado = false
+    let tmpRoads = tmpSolution.filter(road=>road.initNode === origin || road.finalNode === origin)
+    // console.log(tmpRoads)
+    for (var i = tmpRoads.length - 1; i >= 0; i--) {
+        let otherChild = tmpRoads[i].initNode !== origin ? tmpRoads[i].initNode:tmpRoads[i].finalNode
+        let newroads = tmpSolution.filter(road=>road !==tmpRoads[i])
+        if (otherChild === destinity || verifyCycle(otherChild,destinity,newroads)){
+            encontrado = true
+            break
+        }
     }
-}
+    return encontrado
+
+}   
+
+
+
 
 function recolorLinesByID(lineID,initColor,finalColor,arrayuOfNodes) {
     let numebrs=lineID.split(" ");

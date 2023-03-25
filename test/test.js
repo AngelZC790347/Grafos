@@ -4,14 +4,15 @@ import {alKruskal} from '../JS/algoritmos'
 let nodes = new Map();
 var roads = [];
 const CANTNODOS=11;
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded', ()=>{
     setUpSvg();
     testNodes();
-//    testRoads();
+   // testRoads();
 //    testRoadsByNode();
-    alKruskal(nodes,"A");
+     alKruskal(nodes,roads);
 //    testeAnimation();
 });
+
 function setUpSvg(){
     let roadElement=document.createElementNS("http://www.w3.org/2000/svg", "svg");
     roadElement.setAttribute("height",`${document.body.offsetHeight}`);
@@ -55,12 +56,10 @@ function testNodes() {
         let randomNode2 = nodes.get(String.fromCharCode(Math.round(Math.random()*10) + "A".charCodeAt(0)));
         if (randomNode !== randomNode2){
             let newRoad = new Road(Math.round(Math.random()*100),randomNode,randomNode2);
-            console.log(newRoad);
+            roads.push(newRoad)
         }        
     });
-    
-    
-   
+    // console.log(nodes.get("A").hasRoadTo(nodes.get("F")))
 }
 function testeAnimation() {
     arrayuOfNodes[CANTNODOS-1].roads[0].setLineAnimation();

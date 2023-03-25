@@ -10,14 +10,29 @@ export class Nodo{
             el.drawLine();
         });
     }
+    hasRoadTo(destinity,previousRoad = null){
+        console.log(this,destinity,previousRoad)
+        let encontrado = false
+        let roadsTmp = this.roads.filter(road => road !== previousRoad)
+        console.log(roadsTmp)
+        for (var i = 0; i < roadsTmp.length; i++) {
+            let road= roadsTmp[i]
+            let otherChild = this!=road.initNode?road.initNode:road.finalNode
+            if (otherChild === destinity || otherChild.hasRoadTo(destinity,road)){ 
+                encontrado = true
+                break
+            }
+        }        
+        return encontrado
+    }
     drawNodo(){
         let updateRoads=this.updateRoads.bind(this);
         const secNodo = document.getElementById('nodo-sec');
             secNodo.innerHTML+=`<div class="nodo" id="node-${this.valor}">${this.valor}</div>`;  
             const nuevoNodeElement = document.getElementById(`node-${this.valor}`);
             document.body.append(nuevoNodeElement);
-            nuevoNodeElement.style.left="0px";
-            nuevoNodeElement.style.top="0px";
+            nuevoNodeElement.style.left=Math.round(Math.random()*1000);
+            nuevoNodeElement.style.top=Math.round(Math.random()*500);
             nuevoNodeElement.style.backgroundColor = this.highlighted? "red":"yellow";
             nuevoNodeElement.onmousedown=function(event){
                 nuevoNodeElement.style.position = 'absolute';

@@ -2,8 +2,7 @@ const SVGLINK ="http://www.w3.org/2000/svg";
 export class Road{
     constructor(tamaño,nodo1,nodo2){
         this.initNode = nodo1;
-        this.finalNode = nodo2;
-        console.log(nodo1, nodo2, this);
+        this.finalNode = nodo2;        
         this.initNode.roads.push(this);
         this.finalNode.roads.push(this);
         this.tamaño=tamaño;                
@@ -42,7 +41,13 @@ export class Road{
         roadElement.append(this.lineElement);
     }
     setLineAnimation(initColor,finalColor){
-        this.lineElement.innerHTML+=`<animate attributeType="XML" attributeName="stroke" from=${initColor} to=${finalColor} dur="4s"">`;
-        setTimeout(()=>{this.lineElement.style.stroke=finalColor; this.lineElement.innerHTML=this.tamaño},3500);
+        return new Promise(resolve=>{
+            this.lineElement.innerHTML+=`<animate attributeType="XML" attributeName="stroke" from=${initColor} to=${finalColor} dur="4s"">`
+            setTimeout(()=>{
+                this.lineElement.style.stroke=finalColor;
+                this.lineElement.innerHTML=this.tamaño
+                resolve()
+            },4000);
+        })
     }
 }
