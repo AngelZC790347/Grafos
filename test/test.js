@@ -1,16 +1,16 @@
 import {Nodo } from '../JS/nodo';
 import {Road} from '../JS/road';
-import {alKruskal} from '../JS/algoritmos'
+import {alKruskal,alDijkstra} from '../JS/algoritmos'
 let nodes = new Map();
 var roads = [];
 const CANTNODOS=11;
 document.addEventListener('DOMContentLoaded', ()=>{
     setUpSvg();
     testNodes();
-   // testRoads();
-//    testRoadsByNode();
-     alKruskal(nodes,roads);
-//    testeAnimation();
+    // testRoads();
+    // testRoadsByNode();
+    // alKruskal(nodes,[...roads]);
+    alDijkstra(nodes.get('A'),nodes,roads);
 });
 
 function setUpSvg(){
@@ -44,12 +44,12 @@ function  testRoads() {
 function testNodes() {
     for (var i = 0, max = CANTNODOS; i < max; i++) {
         let code = "A".charCodeAt(0) + i;
-        console.log(code);
+        // console.log(code);
         let nodeChar = String.fromCharCode(code);
-        console.log(nodeChar);
+        // console.log(nodeChar);
         let nodo1 = new Nodo(nodeChar);
         nodes.set(nodeChar,nodo1);               
-        console.log(nodes)
+        // console.log(nodes)
     }
     nodes.forEach((val)=>{
         let randomNode = nodes.get(String.fromCharCode(Math.round(Math.random()*10) + "A".charCodeAt(0)));

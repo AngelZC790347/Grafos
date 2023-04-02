@@ -1,22 +1,46 @@
 
-export function alDijkstra(){
-    // Dijstra algoritmo
+export function alDijkstra(initNode,nodes,roads){
+    let sol = []
+    function allNodesHighLithed() {
+        // console.log([...nodes.values()])
+        return [...nodes.values()].every(node=>!node.highlighted)
+    }
+    console.log(!allNodesHighLithed())
+    while (!allNodesHighLithed()){
+        let min = 1000000
+        let minVal = {}
+        for (var i = 0; i < initNode.roads.length; i++) {
+            let currentRoad= initNode.roads[i];
+            console.log(currentRoad.tamaño);
+            if(currentRoad.tamaño < min){
+                min = currentRoad.tamaño
+                minVal.origin = (currentRoad.initNode !== initNode ?currentRoad.initNode : currentRoad.finalNode)
+                minVal.weight = min                
+            }
+            console.log(minVal)
+        }
+        console.log(minVal)
+        minVal.origin.highlighted = true
+        sol.push(minVal);
+    }
+    console.log(sol)        
 }
 
 export async function alKruskal(nodes,roads){    
     roads.sort((road1,road2)=>road2.tamaño - road1.tamaño)
     let solution = []
-    console.log(roads)
     for (var i = roads.length - 1; i >= 0; i--) {
         let min = roads.pop()    
         // console.log(min,roads)
         if (!verifyCycle(min.initNode,min.finalNode,solution)) {
             await min.setLineAnimation("rgb(250, 250, 250)","red") 
             solution.push(min)
+        }else{
+            min.lineElement.setAttribute("display","none");
+            min.textElement.setAttribute("display","none");
         }
-        console.log(solution)
-        
-    }    
+    }
+    
 }   
 
 

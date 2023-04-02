@@ -46,6 +46,7 @@ export class Road{
             setTimeout(()=>{
                 this.lineElement.style.stroke=finalColor;
                 this.lineElement.innerHTML=this.tamaño
+                this.recorrido = true
                 resolve()
             },4000);
         })

@@ -1,5 +1,5 @@
 html,body{
-    background-color: rgb(8, 8, 106);
+    background-color:#0e2030;
     height: 100%;
     min-height: 100%;
     overflow: hidden;
@@ -19,78 +19,5 @@ html,body{
     padding-left: 10px;
 }
 
-#mostrar-modal {
-  display: none;
-}
-#mostrar-modal + label {
-  background: steelblue;
-  right: 0;
-  position: absolute;
-  margin: auto;
-  color: #fff;
-  line-height: 3;
-  padding: 0 1em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-#mostrar-modal + label:hover {
-  background: #38678f;
-}
 
-#pop-up-form{
-  background: rgba(0, 0, 0, 0.9);
-  color: #fff;
-  position: fixed;
-  top: -100vh;
-  right: 0;
-  height: 40vh;
-  width: 30vw;
-  transition: all .5s;
-  padding: 20px;
-}
-#pop-up-form input {
-  width: 30%;
-  height: 20%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin: 8px;
-  font-size: 1.5em;
-  text-align: center;
-}
-#mostrar-modal:checked ~ #pop-up-form {
-  top: 0;
-}
-#cerrar-modal {
-  display: none;
-}
-#cerrar-modal + label {
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  z-index: 100;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  background: tomato;
-  width: 25px;
-  height: 25px;
-  line-height: 25px;
-  text-align: center;
-  border-radius: 50%;
-  transition: all .5s;
-}
-#cerrar-modal:checked ~ #pop-up-form {
-  top: -100vh;
-}
-#cerrar-modal + label {
-  display: none;
-}
-#mostrar-modal:checked ~ #cerrar-modal + label {
-  display: block;
-}
-#cerrar-modal:checked + label {
-  display: none;
-}
 
