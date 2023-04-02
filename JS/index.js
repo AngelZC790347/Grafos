@@ -18,7 +18,7 @@ function setUpSvg(){
     document.body.append(roadElement);
 }
 
-export function addNodo() {
+function addNodo() {
     const fieldNodoValue =document.getElementById('in-number-nodo').value;
     if (fieldNodoValue === "" || fieldNodoValue ==null ) {
         alert( "the field Letter must be writted");        
