@@ -1,5 +1,5 @@
 const SVGLINK ="http://www.w3.org/2000/svg";
-export class Road{
+class Road{
     constructor(tamaño,nodo1,nodo2){
         this.initNode = nodo1;
         this.finalNode = nodo2;        

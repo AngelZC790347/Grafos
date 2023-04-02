@@ -1,5 +1,4 @@
-
-export function alDijkstra(initNode,nodes,roads){
+function alDijkstra(initNode,nodes,roads){
     let sol = []
     function allNodesHighLithed() {
         // console.log([...nodes.values()])
@@ -26,7 +25,7 @@ export function alDijkstra(initNode,nodes,roads){
     console.log(sol)        
 }
 
-export async function alKruskal(nodes,roads){    
+async function alKruskal(nodes,roads){    
     roads.sort((road1,road2)=>road2.tamaño - road1.tamaño)
     let solution = []
     for (var i = roads.length - 1; i >= 0; i--) {
@@ -77,7 +76,7 @@ function recolorLinesByID(lineID,initColor,finalColor,arrayuOfNodes) {
     });
 }
 
-export  function alPrim(){
+function alPrim(){
     //algoritmos de Prin Animation
 }
 

@@ -1,4 +1,4 @@
-export class Nodo{
+class Nodo{
     constructor(valor){
             this.roads=[]; 
             this.valor = valor;
