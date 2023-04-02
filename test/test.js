@@ -1,16 +1,18 @@
 import {Nodo } from '../JS/nodo';
 import {Road} from '../JS/road';
-import {alKruskal} from '../JS/algoritmos'
-let arrayuOfNodes=[];
-const CANTNODOS=20;
-document.addEventListener('DOMContentLoaded',()=>{
+import {alKruskal,alDijkstra} from '../JS/algoritmos'
+let nodes = new Map();
+var roads = [];
+const CANTNODOS=11;
+document.addEventListener('DOMContentLoaded', ()=>{
     setUpSvg();
     testNodes();
-    testRoads();
-    testRoadsByNode();
-    alKruskal(arrayuOfNodes);
-    // testeAnimation();
+    // testRoads();
+    // testRoadsByNode();
+    // alKruskal(nodes,[...roads]);
+    alDijkstra(nodes.get('A'),nodes,roads);
 });
+
 function setUpSvg(){
     let roadElement=document.createElementNS("http://www.w3.org/2000/svg", "svg");
     roadElement.setAttribute("height",`${document.body.offsetHeight}`);
@@ -40,9 +42,24 @@ function  testRoads() {
 }
 
 function testNodes() {
-    for (let index = 0; index < CANTNODOS; index++) {
-        arrayuOfNodes.push(new Nodo(index+1));
+    for (var i = 0, max = CANTNODOS; i < max; i++) {
+        let code = "A".charCodeAt(0) + i;
+        // console.log(code);
+        let nodeChar = String.fromCharCode(code);
+        // console.log(nodeChar);
+        let nodo1 = new Nodo(nodeChar);
+        nodes.set(nodeChar,nodo1);               
+        // console.log(nodes)
     }
+    nodes.forEach((val)=>{
+        let randomNode = nodes.get(String.fromCharCode(Math.round(Math.random()*10) + "A".charCodeAt(0)));
+        let randomNode2 = nodes.get(String.fromCharCode(Math.round(Math.random()*10) + "A".charCodeAt(0)));
+        if (randomNode !== randomNode2){
+            let newRoad = new Road(Math.round(Math.random()*100),randomNode,randomNode2);
+            roads.push(newRoad)
+        }        
+    });
+    // console.log(nodes.get("A").hasRoadTo(nodes.get("F")))
 }
 function testeAnimation() {
     arrayuOfNodes[CANTNODOS-1].roads[0].setLineAnimation();

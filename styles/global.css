@@ -1,8 +1,10 @@
 html,body{
-   background-color: rgb(8, 8, 106);
-   height: 100%;
-   min-height: 100%;
-   overflow: hidden;
+    background-color:#0e2030;
+    height: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    padding:0;
+    font-family: monospace, "comic sans"
 }
 .footer {
     position: absolute;
@@ -16,3 +18,6 @@ html,body{
     padding-right:  10px;
     padding-left: 10px;
 }
+
+
+

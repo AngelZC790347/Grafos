@@ -1,41 +1,68 @@
 
-export function alDijkstra(){
-    // Dijstra algoritmo
-}
-
-export function alKruskal(arrayuOfNodes){
-    if (arrayuOfNodes.length<2) {
-        alert("You need at least 2 node");
-    }else{
-        let tmpRoads=[]; //the roads that will be deleting;
-        let index = 0;
-        let terminado = false;
-        let roadsElements = document.getElementsByTagName('line'); 
-        for (const iterator1 of roadsElements) {
-            tmpRoads.push(iterator1);
-        }
-        while (!terminado) {
-            if (index >= arrayuOfNodes.length-2){
-                terminado = true;
-            }
-
-            let element=getTheMinRoad(tmpRoads,arrayuOfNodes);// catch the minimun road It will nullable If it form a cicle road
-
-            if (element === null){
-                index = index;
-            } else {
-                recolorLinesByID(element.id,"rgb(250, 250, 250)","rgb(255,0,0)",arrayuOfNodes);   
-                index++;
-            }
-        }
-        tmpRoads.map(el=>{
-            let numebrs=el.id.split(" ");
-            const textID=`${el.innerHTML} node-${numebrs[0]} node-${numebrs[1]}`
-            document.getElementById(textID).innerHTML="";
-            recolorLinesByID(el.id,"rgb(250, 250, 250)", "transparent",arrayuOfNodes);
-        }); 
+export function alDijkstra(initNode,nodes,roads){
+    let sol = []
+    function allNodesHighLithed() {
+        // console.log([...nodes.values()])
+        return [...nodes.values()].every(node=>!node.highlighted)
     }
+    console.log(!allNodesHighLithed())
+    while (!allNodesHighLithed()){
+        let min = 1000000
+        let minVal = {}
+        for (var i = 0; i < initNode.roads.length; i++) {
+            let currentRoad= initNode.roads[i];
+            console.log(currentRoad.tamaño);
+            if(currentRoad.tamaño < min){
+                min = currentRoad.tamaño
+                minVal.origin = (currentRoad.initNode !== initNode ?currentRoad.initNode : currentRoad.finalNode)
+                minVal.weight = min                
+            }
+            console.log(minVal)
+        }
+        console.log(minVal)
+        minVal.origin.highlighted = true
+        sol.push(minVal);
+    }
+    console.log(sol)        
 }
+
+export async function alKruskal(nodes,roads){    
+    roads.sort((road1,road2)=>road2.tamaño - road1.tamaño)
+    let solution = []
+    for (var i = roads.length - 1; i >= 0; i--) {
+        let min = roads.pop()    
+        // console.log(min,roads)
+        if (!verifyCycle(min.initNode,min.finalNode,solution)) {
+            await min.setLineAnimation("rgb(250, 250, 250)","red") 
+            solution.push(min)
+        }else{
+            min.lineElement.setAttribute("display","none");
+            min.textElement.setAttribute("display","none");
+        }
+    }
+    
+}   
+
+
+function verifyCycle(origin , destinity , tmpSolution) {
+    // body...    
+    let encontrado = false
+    let tmpRoads = tmpSolution.filter(road=>road.initNode === origin || road.finalNode === origin)
+    // console.log(tmpRoads)
+    for (var i = tmpRoads.length - 1; i >= 0; i--) {
+        let otherChild = tmpRoads[i].initNode !== origin ? tmpRoads[i].initNode:tmpRoads[i].finalNode
+        let newroads = tmpSolution.filter(road=>road !==tmpRoads[i])
+        if (otherChild === destinity || verifyCycle(otherChild,destinity,newroads)){
+            encontrado = true
+            break
+        }
+    }
+    return encontrado
+
+}   
+
+
+
 
 function recolorLinesByID(lineID,initColor,finalColor,arrayuOfNodes) {
     let numebrs=lineID.split(" ");
