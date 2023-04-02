@@ -1,6 +1,6 @@
-import {Nodo } from '../JS/nodo';
-import {Road} from '../JS/road';
-import {alKruskal} from './algoritmos'
+// import {Nodo } from '../JS/nodo';
+// import {Road} from '../JS/road';
+// import {alKruskal} from './algoritmos'
 let nodes = new Map();
 let roads = []
 document.addEventListener('DOMContentLoaded',()=>{
